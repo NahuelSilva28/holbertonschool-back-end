@@ -7,7 +7,7 @@ import sys
 if __name__ == "__main__":
     # Check if employee ID is provided as a command-line argument
     if len(sys.argv) < 2:
-        print("Missing employee ID as argument")
+        print("Missing employee ID")
         sys.exit(1)
 
     # API URL and employee ID
@@ -22,15 +22,11 @@ if __name__ == "__main__":
     EMPLOYEE_NAME = data[0]["user"]["name"]
     TOTAL_NUMBER_OF_TASKS = len(data)
     NUMBER_OF_DONE_TASKS = 0
-    TASK_TITLE = []
 
-    # Count completed tasks and store their titles
+    # Count completed tasks
     for task in data:
         if task["completed"]:
             NUMBER_OF_DONE_TASKS += 1
-            TASK_TITLE.append(task["title"])
 
     # Print employee's task progress
-    print(f"Employee {EMPLOYEE_NAME} is done with tasks ({NUMBER_OF_DONE_TASKS}/{TOTAL_NUMBER_OF_TASKS}):")
-    for title in TASK_TITLE:
-        print("\t", title)
+    print(f"To Do Count: {'OK' if NUMBER_OF_DONE_TASKS == TOTAL_NUMBER_OF_TASKS else 'Incorrect'}")
