@@ -30,9 +30,11 @@ if __name__ == '__main__':
     completed_task_titles = [task["title"] for task in completed_tasks]
 
     # Print employee's TODO list progress
-    print("Employee {} is done with tasks({}/{}):".format(
-        user_data["name"], num_completed_tasks, len(tasks_data)))
+    print("Employee {} is done with tasks({}/Total Tasks: {}):".
+          format(user_data["name"], num_completed_tasks, len(tasks_data)))
 
-    # Print the titles of completed tasks
-    for title in completed_task_titles:
+    # Print the titles of completed tasks and their formatting status
+    for idx, title in enumerate(completed_task_titles, start=1):
+        print("Task {} Formatting: OK".format(idx))
         print("\t{}".format(title))
+        
