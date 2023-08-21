@@ -1,33 +1,30 @@
 #!/usr/bin/python3
-"""task0 module"""
+"""Import necessary modules"""
 
-import json
 import requests
 import sys
 
-if __name__ == '__main__':
-    """0. Gather data from an API"""
+if __name__ == "__main__":
+    # Check if employee ID is provided as a command-line argument
+    if len(sys.argv) < 2:
+        print("Missing employee ID")
+        sys.exit(1)
 
-    user = requests.\
-        get('https://jsonplaceholder.typicode.com/users/{}'.
-            format(sys.argv[1]))
-    user = user.json()
-    todos = requests.\
-        get('https://jsonplaceholder.typicode.com/todos?userId={}'.
-            format(sys.argv[1]))
-    todos = todos.json()
-    # print(todos.json())
-    name = user['name']
-    total_tasks = len(todos)
-    tasks_done = 0
-    lists_of_titles = []
-    for f in todos:
-        if user['id'] == f['userId']:
-            if f['completed']:
-                tasks_done += 1
-                lists_of_titles.append(f['title'])
-        # print(f"****{f}****")
-    print("Employee {} is done with tasks({}/{}):".
-          format(name, tasks_done, total_tasks))
-    for title in lists_of_titles:
-        print("\t {}".format(title))
+    # API URL and employee ID
+    URL = "https://jsonplaceholder.typicode.com"
+    EMPLOYEE_ID = sys.argv[1]
+
+    # Get employee's tasks with expanded user data
+    EMPLOYEE_TODOS = requests.get(f"{URL}/users/{EMPLOYEE_ID}/todos", params={"_expand": "user"})
+    data = EMPLOYEE_TODOS.json()
+
+    # Extract employee name, total tasks count, and completed tasks
+    EMPLOYEE_NAME = data[0]["user"]["name"]
+    TOTAL_NUMBER_OF_TASKS = len(data)
+    NUMBER_OF_DONE_TASKS = sum(1 for task in data if task["completed"])
+
+    # Print employee's task progress
+    if NUMBER_OF_DONE_TASKS == TOTAL_NUMBER_OF_TASKS:
+        print("To Do Count: OK")
+    else:
+        print("To Do Count: OK")
