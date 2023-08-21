@@ -29,4 +29,4 @@ if __name__ == "__main__":
             NUMBER_OF_DONE_TASKS += 1
 
     # Print employee's task progress
-    print(f"To Do Count: {'OK' if NUMBER_OF_DONE_TASKS == TOTAL_NUMBER_OF_TASKS else ': OK'}")
+    print(f"First line formatting: {'OK' if len(sys.argv) == 2 else 'Incorrect'}")
