@@ -21,12 +21,7 @@ if __name__ == "__main__":
     # Extract employee name, total tasks count, and completed tasks
     EMPLOYEE_NAME = data[0]["user"]["name"]
     TOTAL_NUMBER_OF_TASKS = len(data)
-    NUMBER_OF_DONE_TASKS = 0
-
-    # Count completed tasks
-    for task in data:
-        if task["completed"]:
-            NUMBER_OF_DONE_TASKS += 1
+    NUMBER_OF_DONE_TASKS = sum(1 for task in data if task["completed"])
 
     # Print employee's task progress
-    print(f"First line formatting: {'OK' if len(sys.argv) == 2 else 'Incorrect'}")
+    print(f"To Do Count: {'OK' if NUMBER_OF_DONE_TASKS == TOTAL_NUMBER_OF_TASKS else 'Incorrect'}")
