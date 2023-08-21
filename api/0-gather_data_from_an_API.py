@@ -24,4 +24,7 @@ if __name__ == "__main__":
     NUMBER_OF_DONE_TASKS = sum(1 for task in data if task["completed"])
 
     # Print employee's task progress
-    print(f"To Do Count: {'OK' if NUMBER_OF_DONE_TASKS == TOTAL_NUMBER_OF_TASKS else 'Incorrect'}")
+    if NUMBER_OF_DONE_TASKS == TOTAL_NUMBER_OF_TASKS:
+        print("To Do Count: OK")
+    else:
+        print("To Do Count: Incorrect")
