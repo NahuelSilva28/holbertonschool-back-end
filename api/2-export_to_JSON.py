@@ -16,7 +16,8 @@ if __name__ == "__main__":
     EMPLOYEE_ID = sys.argv[1]
 
     # Get employee's tasks with expanded user data
-    EMPLOYEE_TODOS = requests.get(f"{URL}/users/{EMPLOYEE_ID}/todos", params={"_expand": "user"})
+    EMPLOYEE_TODOS = requests.get(f"{URL}/users/{EMPLOYEE_ID}/todos",
+                                  params={"_expand": "user"})
     data = EMPLOYEE_TODOS.json()
 
     # Extract employee username
