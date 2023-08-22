@@ -1,36 +1,34 @@
 #!/usr/bin/python3
-"""Import necessary modules"""
+"""Export to CSV"""
 
+import json
 import requests
 import sys
 
-if __name__ == "__main__":
-    # Check if employee ID is provided as a command-line argument
-    if len(sys.argv) < 2:
-        print("Missing employee ID as argument")
-        sys.exit(1)
+if __name__ == '__main__':
+    """Export tasks data to CSV"""
 
-    # API URL and employee ID
-    URL = "https://jsonplaceholder.typicode.com"
-    EMPLOYEE_ID = sys.argv[1]
+    # Fetch user data
+    user_response = requests.get('https://jsonplaceholder.typicode.com/users/{}'.format(sys.argv[1]))
+    user_data = user_response.json()
+    name = user_data['name']
 
-    # Get employee's tasks with expanded user data
-    EMPLOYEE_TODOS = requests.get(f"{URL}/users/{EMPLOYEE_ID}/todos", params={"_expand": "user"})
-    data = EMPLOYEE_TODOS.json()
+    # Fetch user's tasks
+    tasks_response = requests.get('https://jsonplaceholder.typicode.com/todos?userId={}'.format(sys.argv[1]))
+    tasks_data = tasks_response.json()
 
-    # Extract employee name, total tasks count, and completed tasks
-    EMPLOYEE_NAME = data[0]["user"]["name"]
-    TOTAL_NUMBER_OF_TASKS = len(data)
-    NUMBER_OF_DONE_TASKS = 0
-    TASK_TITLE = []
+    # Count tasks and collect titles
+    total_tasks = len(tasks_data)
+    tasks_done = 0
+    lists_of_titles = []
+    
+    for task in tasks_data:
+        if task['userId'] == int(sys.argv[1]):
+            if task['completed']:
+                tasks_done += 1
+                lists_of_titles.append(task['title'])
 
-    # Count completed tasks and store their titles
-    for task in data:
-        if task["completed"]:
-            NUMBER_OF_DONE_TASKS += 1
-            TASK_TITLE.append(task["title"])
-
-    # Print employee's task progress
-    print(f"Employee {EMPLOYEE_NAME} is done with tasks ({NUMBER_OF_DONE_TASKS}/{TOTAL_NUMBER_OF_TASKS}):")
-    for title in TASK_TITLE:
-        print("\t", title)
+    # Print task summary
+    print("Employee {} is done with tasks ({}/{}):".format(name, tasks_done, total_tasks))
+    for title in lists_of_titles:
+        print("\t{}".format(title))
