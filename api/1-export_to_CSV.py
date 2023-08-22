@@ -13,20 +13,24 @@ if __name__ == '__main__':
 
     # Fetch user data
     user_id = sys.argv[1]
-    user_response = requests.get('https://jsonplaceholder.typicode.com/users/{}'.format(user_id))
+    user_response = requests.get
+    ('https://jsonplaceholder.typicode.com/users/{}'.format(user_id))
     user_data = user_response.json()
     username = user_data.get('username')
 
     # Fetch user's tasks
-    tasks_response = requests.get('https://jsonplaceholder.typicode.com/todos?userId={}'.format(user_id))
+    tasks_response = requests.get
+    ('https://jsonplaceholder.typicode.com/todos?userId={}'.format(user_id))
     tasks_data = tasks_response.json()
 
     # Write tasks data to CSV file
     with open('{}.csv'.format(user_id), 'w', newline='') as csv_file:
         csv_writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
-        csv_writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
+        csv_writer.writerow
+        (["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
 
         for task in tasks_data:
-            csv_writer.writerow([user_id, username, str(task['completed']), task['title']])
+            csv_writer.writerow
+            ([user_id, username, str(task['completed']), task['title']])
 
     print("Data exported to {}.csv".format(user_id))
