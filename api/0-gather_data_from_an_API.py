@@ -16,7 +16,8 @@ if __name__ == "__main__":
 
     # Construct URL for employee's tasks with expanded user data
     employee_todos_url = f"{URL}/users/{EMPLOYEE_ID}/todos"
-    EMPLOYEE_TODOS = requests.get(employee_todos_url, params={"_expand": "user"})
+    EMPLOYEE_TODOS = requests.get(employee_todos_url, params=
+                                  {"_expand": "user"})
     data = EMPLOYEE_TODOS.json()
 
     # Extract employee name, total tasks count, and completed tasks
