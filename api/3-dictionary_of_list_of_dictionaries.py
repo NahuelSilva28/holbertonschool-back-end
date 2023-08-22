@@ -19,7 +19,8 @@ if __name__ == "__main__":
         user_id = user["id"]
         username = user["username"]
 
-        tasks_response = requests.get(f"{URL}/todos", params={"userId": user_id})
+        tasks_response = requests.get(f"{URL}/todos",
+                                      params={"userId": user_id})
         tasks_data = tasks_response.json()
 
         tasks_list = []
