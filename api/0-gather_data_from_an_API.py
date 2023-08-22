@@ -14,8 +14,9 @@ if __name__ == "__main__":
     URL = "https://jsonplaceholder.typicode.com"
     EMPLOYEE_ID = sys.argv[1]
 
-    # Get employee's tasks with expanded user data
-    EMPLOYEE_TODOS = requests.get(f"{URL}/users/{EMPLOYEE_ID}/todos", params={"_expand": "user"})
+    # Construct URL for employee's tasks with expanded user data
+    employee_todos_url = f"{URL}/users/{EMPLOYEE_ID}/todos"
+    EMPLOYEE_TODOS = requests.get(employee_todos_url, params={"_expand": "user"})
     data = EMPLOYEE_TODOS.json()
 
     # Extract employee name, total tasks count, and completed tasks
